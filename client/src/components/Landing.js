@@ -5,6 +5,7 @@ class Landing extends Component {
   componentDidMount() {}
   render() {
     if (this.props.auth) {
+      this.props.history.push('/todos');
       return <div />;
     }
     return (
