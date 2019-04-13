@@ -60,7 +60,7 @@ class TodoItem extends Component {
     const { description, _id } = this.props.todo;
     return (
       <Zoom in={this.props ? true : false}>
-        <Paper style={{ padding: '5px', marginBottom: '5px' }}>
+        <Paper style={{ padding: '10px 5px', marginBottom: '10px' }}>
           <ListItem>
             <ListItemText primary={description} />
             <ListItemSecondaryAction>
