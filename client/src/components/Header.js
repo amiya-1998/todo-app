@@ -95,7 +95,7 @@ class Header extends Component {
   }
   render() {
     return (
-      <AppBar position="static">
+      <AppBar position="static" style={{ marginBottom: '15px' }}>
         <Toolbar>
           <Typography variant="h6" color="inherit">
             <Link

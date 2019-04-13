@@ -32,18 +32,34 @@ class ShowTodos extends Component {
   }
 
   render() {
-    return (
-      <>
-        <h1>Todo List</h1>
-        <List>
-          {this.props.todos
-            ? this.props.todos.map(todo => (
-                <TodoItem key={todo._id} todo={todo} />
-              ))
-            : null}
-        </List>
-      </>
-    );
+    if (this.props.todos) {
+      return (
+        <>
+          <h1 style={{ textAlign: 'center' }}>Todo List</h1>
+          <hr />
+          <hr />
+          <List>
+            {this.props.todos
+              ? this.props.todos.map(todo => (
+                  <TodoItem key={todo._id} todo={todo} />
+                ))
+              : null}
+          </List>
+        </>
+      );
+    } else {
+      return (
+        <div
+          style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+          className="w-100 d-flex justify-content-center"
+        >
+          <div className="lds-ripple">
+            <div />
+            <div />
+          </div>
+        </div>
+      );
+    }
   }
 }
 
