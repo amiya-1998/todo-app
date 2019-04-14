@@ -1,4 +1,5 @@
 const requireLogin = require('../../middlewares/requireMiddleware');
+const authorizeCheck = require('../../middlewares/authorizeMiddleware');
 const mongoose = require('mongoose');
 
 const User = mongoose.model('users');
@@ -28,26 +29,31 @@ module.exports = app => {
     res.json(new_todo);
   });
 
-  app.delete('/api/todo/:id', requireLogin, (req, res) => {
-    Todo.findByIdAndDelete(req.params.id).then(data => {
+  app.delete('/api/todo/:id', requireLogin, authorizeCheck, (req, res) => {
+    Todo.findByIdAndDelete(req.params.id).then(() => {
       res.send({
         successdelete: 'Successfully deleted'
       });
     });
   });
 
-  app.put('/api/todo/strike/:id', requireLogin, async (req, res) => {
-    const { striked_out } = await Todo.findById(req.params.id);
-    Todo.findByIdAndUpdate(
-      req.params.id,
-      { striked_out: !striked_out },
-      { new: true }
-    ).then(todo => {
-      res.send(todo);
-    });
-  });
+  app.put(
+    '/api/todo/strike/:id',
+    requireLogin,
+    authorizeCheck,
+    async (req, res) => {
+      const { striked_out } = await Todo.findById(req.params.id);
+      Todo.findByIdAndUpdate(
+        req.params.id,
+        { striked_out: !striked_out },
+        { new: true }
+      ).then(todo => {
+        res.send(todo);
+      });
+    }
+  );
 
-  app.put('/api/todo/:id', requireLogin, (req, res) => {
+  app.put('/api/todo/:id', requireLogin, authorizeCheck, (req, res) => {
     Todo.findByIdAndUpdate(
       req.params.id,
       { description: req.body.description },
